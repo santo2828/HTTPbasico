@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Cliente TCP
@@ -27,7 +29,7 @@ public class ClientTcp {
     public boolean connect() {
         try {
             System.out.println("[client] Cliente conectando con servidor...");
-            client = new Socket("", 5000);
+            client = new Socket("192.168.122.61", 5000);
             System.out.println("[client] Cliente conectado.");
             out = new DataOutputStream(client.getOutputStream());
             return true;
@@ -40,21 +42,28 @@ public class ClientTcp {
 
     public void sendMessage() {
         ServidorTcp app =new ServidorTcp();
-        int PORT =5000;
+       
         
-        String msg = "";
-        in = new BufferedReader(new InputStreamReader(System.in));
         
-        while(!msg.equals("exit")) {
-            try {
-                System.out.println("[client] Mensaje para enviar: ");
-                msg = in.readLine();
-                out.writeUTF(msg+"\n");
-                System.out.println("[client] Mensaje enviado.");
-            }catch(IOException e) {
-                
-            }
+        
+        try {
+            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            
+             
+               System.out.println("[client] Mensaje para enviar: ");
+               out.writeUTF("GET /HTTP/1.1\n");
+               out.writeUTF("Host: 192.168.122.61\n");
+               out.writeUTF("\r\n");
+               System.out.println("[client] Mensaje enviado.");
+               
+        
+            
+            
+        } catch (IOException ex) {
+            System.out.println("Error InputStreamReadoer");
         }
+        
+        
     }
     
 }
