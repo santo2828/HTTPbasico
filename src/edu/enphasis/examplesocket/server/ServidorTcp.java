@@ -44,26 +44,24 @@ public class ServidorTcp {
         while(active) {
             try {
                 System.out.println("[server] Esperando conexiones...");
+                
                 client = server.accept();
                 
                 
                 Service service = new Service(client);
-                service.start();//verifica que el hilo esta creado
+                service.start();//ejecuta el metodo Run 
+                
                 list.add(service);
                 System.out.println("[server] Cliente conectado en "+client.getLocalPort()+" desde..."+client.getInetAddress().getHostAddress()+":"+client.getPort());
-            
-             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-             out = new DataOutputStream(client.getOutputStream());
                 
-            String s;
-            s=in.readLine();
-            while(s!=null){
-                  
-                 System.out.println(" [server]  Mensaje recibido"+s);
-                System.out.println("HTTP/1.0 100 OK \r\n");
-                 //System.out.println("<html>hola mundo </html>\r\n");
                  
-            }
+            // in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+             //out = new DataOutputStream(client.getOutputStream());
+             
+                
+            //String s;
+            //s=in.readLine();
+            
            
              
             
